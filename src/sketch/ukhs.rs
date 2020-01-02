@@ -549,7 +549,7 @@ mod test {
     #[test]
     fn ukhs_add_sequence() {
         let mut filename = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        filename.push("tests/test-data/ecoli.genes.fna");
+        filename.push("tests/data/ecoli.genes.fna");
 
         let mut ukhs = MemberUKHS::new(9, 21).unwrap();
 
@@ -569,7 +569,7 @@ mod test {
     #[test]
     fn ukhs_writer_reader() {
         let mut filename = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        filename.push("tests/test-data/ecoli.genes.fna");
+        filename.push("tests/data/ecoli.genes.fna");
 
         let mut ukhs = FlatUKHS::new(9, 21).unwrap();
 
