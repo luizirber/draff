@@ -542,9 +542,9 @@ mod test {
     use std::path::PathBuf;
 
     use needletail::parse_sequence_path;
+    use sourmash::signature::SigsTrait;
 
     use super::{FlatUKHS, MemberUKHS, UKHSTrait};
-    use crate::signature::SigsTrait;
 
     #[test]
     fn ukhs_add_sequence() {
