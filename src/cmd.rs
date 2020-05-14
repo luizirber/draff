@@ -7,8 +7,8 @@ use needletail::parse_sequence_path;
 
 use sourmash::index::linear::LinearIndex;
 use sourmash::index::storage::{FSStorage, Storage};
-use sourmash::index::{Comparable, Index, MHBT};
-use sourmash::signature::{Signature, SigsTrait};
+use sourmash::index::{Comparable, Index};
+use sourmash::signature::Signature;
 use sourmash::sketch::Sketch;
 
 use crate::sketch::ukhs::{FlatUKHS, UKHSTrait, UniqueUKHS};

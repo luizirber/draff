@@ -1,6 +1,5 @@
 use failure::Error;
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
-use serde_derive::Deserialize;
 
 use std::f64::consts::PI;
 use std::fs::File;
@@ -11,7 +10,7 @@ use std::path::Path;
 
 use itertools::Itertools;
 use pdatastructs::hyperloglog::HyperLogLog;
-use sourmash::signature::SigsTrait;
+use sourmash::sketch::Sketch;
 use ukhs;
 
 use sourmash::errors::SourmashError;
@@ -73,7 +72,7 @@ pub type MemberUKHS = UKHS<Nodegraph>;
 pub type FlatUKHS = UKHS<u64>;
 pub type UniqueUKHS = UKHS<HLL>;
 
-pub trait UKHSTrait: SigsTrait {
+pub trait UKHSTrait: Sketch {
     type Storage;
 
     fn new(ksize: usize, wsize: usize) -> Result<UKHS<Self::Storage>, Error>;
@@ -207,7 +206,8 @@ impl UKHSTrait for UKHS<u64> {
     }
 }
 
-impl SigsTrait for UKHS<u64> {
+#[typetag::serde]
+impl Sketch for UKHS<u64> {
     fn size(&self) -> usize {
         self.buckets.len()
     }
@@ -286,7 +286,8 @@ impl UKHSTrait for UKHS<Nodegraph> {
     }
 }
 
-impl SigsTrait for UKHS<Nodegraph> {
+#[typetag::serde]
+impl Sketch for UKHS<Nodegraph> {
     fn size(&self) -> usize {
         self.buckets.len()
     }
@@ -387,7 +388,8 @@ impl UKHSTrait for UKHS<HLL> {
     }
 }
 
-impl SigsTrait for UKHS<HLL> {
+#[typetag::serde]
+impl Sketch for UKHS<HLL> {
     fn size(&self) -> usize {
         self.buckets.len()
     }
@@ -542,7 +544,7 @@ mod test {
     use std::path::PathBuf;
 
     use needletail::parse_sequence_path;
-    use sourmash::signature::SigsTrait;
+    use sourmash::sketch::Sketch;
 
     use super::{FlatUKHS, MemberUKHS, UKHSTrait};
 
